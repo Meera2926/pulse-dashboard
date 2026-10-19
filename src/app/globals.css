@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #07071a;
+  --bg2: #0d0d26;
+  --surface: rgba(255, 255, 255, 0.05);
+  --border: rgba(255, 255, 255, 0.09);
+  --border2: rgba(255, 255, 255, 0.15);
+  --text: #eaeaf8;
+  --muted: #6868a0;
+}
+
+html, body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-inter), sans-serif;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 3px; }
+
+/* Glass card base */
+.glass {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  backdrop-filter: blur(14px);
+  position: relative;
+  overflow: hidden;
+}
+.glass::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* Glow animations */
+@keyframes logo-pulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(79,142,255,0.4); }
+  50%       { box-shadow: 0 0 40px rgba(168,85,247,0.5), 0 0 60px rgba(79,142,255,0.3); }
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.15; }
+}
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-18px) scale(0.96); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes ticker-run {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+
+.animate-slide-in { animation: slideInLeft 0.35s cubic-bezier(0.34,1.56,0.64,1); }
+.animate-fade-up  { animation: fadeUp 0.4s ease; }
+.animate-blink    { animation: blink 1.2s ease-in-out infinite; }
+.animate-logo     { animation: logo-pulse 3s ease-in-out infinite; }
+.animate-ticker   { animation: ticker-run 30s linear infinite; }
+.animate-spin-slow{ animation: spin-slow 20s linear infinite; }
+
+/* Mono font */
+.font-mono { font-family: var(--font-mono), monospace; }
+
+/* 24-hr heatmap grid */
+.heatmap-grid {
+  display: grid;
+  grid-template-columns: 55px repeat(24, minmax(0, 1fr));
+}

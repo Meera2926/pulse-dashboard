@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pulse — Pitch Deck</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: rgba(18, 24, 38, 0.85);
+      --border: rgba(255, 255, 255, 0.08);
+      --cyan: #06b6d4;
+      --cyan-glow: rgba(6, 182, 212, 0.25);
+      --purple: #8b5cf6;
+      --emerald: #10b981;
+      --rose: #f43f5e;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      border-bottom: 1px solid var(--border);
+      background: rgba(9, 13, 22, 0.8);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: -0.02em;
+    }
+    .brand-badge {
+      width: 10px;
+      height: 10px;
+      background: var(--cyan);
+      border-radius: 50%;
+      box-shadow: 0 0 12px var(--cyan);
+      animation: pulse-dot 2s infinite ease-in-out;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.6; }
+    }
+    .deck-nav {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .btn:hover {
+      background: rgba(6, 182, 212, 0.15);
+      border-color: var(--cyan);
+      color: #fff;
+    }
+    .btn-primary {
+      background: var(--cyan);
+      color: #04121a;
+      border-color: var(--cyan);
+    }
+    .btn-primary:hover {
+      background: #22d3ee;
+      box-shadow: 0 0 16px var(--cyan-glow);
+    }
+    
+    .presentation-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+    .slide-viewport {
+      width: 100%;
+      max-width: 1200px;
+      aspect-ratio: 16 / 9;
+      background: radial-gradient(circle at 10% 10%, rgba(6, 182, 212, 0.08), transparent 40%),
+                  radial-gradient(circle at 90% 90%, rgba(139, 92, 246, 0.08), transparent 40%),
+                  #0c121e;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      padding: 3.5rem;
+    }
+    
+    .slide {
+      display: none;
+      height: 100%;
+      flex-direction: column;
+      justify-content: space-between;
+      animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .slide.active {
+      display: flex;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .slide-tag {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--cyan);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+    .slide-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 0.75rem;
+    }
+    .slide-subtitle {
+      color: var(--text-muted);
+      font-size: 1.15rem;
+      max-width: 800px;
+      line-height: 1.5;
+    }
+    
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+    }
+    
+    .deck-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      backdrop-filter: blur(8px);
+      transition: border-color 0.2s ease;
+    }
+    .deck-card:hover {
+      border-color: rgba(6, 182, 212, 0.4);
+    }
+    .deck-card .stat {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--cyan);
+      margin-bottom: 0.25rem;
+    }
+    .deck-card h4 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      color: #fff;
+    }
+    .deck-card p {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      line-height: 1.5;
+    }
+    
+    .timeline-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 0.75rem;
+    }
+    .timeline-badge {
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: rgba(6, 182, 212, 0.15);
+      color: var(--cyan);
+      white-space: nowrap;
+    }
+
+    .slide-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border);
+      padding-top: 1rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    
+    .slide-counter {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Print / PDF Styles */
+    @media print {
+      body {
+        background: #090d16 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      header, .deck-nav {
+        display: none !important;
+      }
+      .presentation-container {
+        padding: 0 !important;
+        display: block !important;
+      }
+      .slide-viewport {
+        max-width: 100% !important;
+        width: 100% !important;
+        height: 100vh !important;
+        border: none !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        page-break-after: always;
+        break-after: page;
+        padding: 2.5rem !important;
+      }
+      .slide {
+        display: flex !important;
+        height: 100% !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <div class="brand-badge"></div>
+      <span>PULSE // DECK</span>
+    </div>
+    <div class="deck-nav">
+      <span id="slideIndicator" style="font-family:'JetBrains Mono'; font-size:0.875rem; color:var(--text-muted);">1 / 8</span>
+      <button class="btn" onclick="prevSlide()">‹ Prev</button>
+      <button class="btn" onclick="nextSlide()">Next ›</button>
+      <button class="btn btn-primary" onclick="window.print()">🖨️ Export PDF / Print</button>
+    </div>
+  </header>
+
+  <div class="presentation-container">
+    <div class="slide-viewport">
+
+      <!-- SLIDE 1 -->
+      <div class="slide active" data-slide="1">
+        <div>
+          <div class="slide-tag">Executive Presentation 2026</div>
+          <h1 class="slide-title" style="font-size:3.5rem; background: linear-gradient(135deg, #06b6d4, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">PULSE</h1>
+          <p class="slide-subtitle" style="font-size:1.4rem; color:#e2e8f0; margin-top:0.75rem;">
+            Real-Time Customer Event Intelligence, Attribution Matrix & Predictive Demand Forecasting
+          </p>
+          <p style="color:var(--text-muted); font-size:1rem; margin-top:1.5rem; max-width:680px; line-height:1.6;">
+            Empowering growth leaders, product managers, and RevOps teams to observe live customer clickstreams, calculate multi-touch attribution on the fly, and predict churn weeks before it happens.
+          </p>
+        </div>
+        <div class="slide-footer">
+          <span>Pulse Platform • Open-Source Initiative</span>
+          <span class="slide-counter">01 / 08</span>
+        </div>
+      </div>
+
+      <!-- SLIDE 2 -->
+      <div class="slide" data-slide="2">
+        <div>
+          <div class="slide-tag">02 // The Problem</div>
+          <h2 class="slide-title">The Rearview Mirror Trap in Modern Analytics</h2>
+          <p class="slide-subtitle">Traditional data pipelines operate on batch ETL cycles, leaving executives operating on stale data.</p>
+          
+          <div class="grid-3">
+            <div class="deck-card">
+              <div class="stat">24-48h</div>
+              <h4>Attribution Lag</h4>
+              <p>Ad managers adjust budgets on yesterday's performance data, burning 15-30% of spend on decaying campaign channels.</p>
+            </div>
+            <div class="deck-card">
+              <div class="stat">Siloed</div>
+              <h4>Fragmented Journeys</h4>
+              <p>Disparate tools for web traffic, product sessions, and revenue leave blind spots across multi-touch customer funnels.</p>
+            </div>
+            <div class="deck-card">
+              <div class="stat" style="color:var(--rose);">Reactive</div>
+              <h4>Post-Mortem Churn</h4>
+              <p>Customer churn is discovered after cancellations happen, missing critical 14-day early warning sentiment decay signals.</p>
+            </div>
+          </div>
+        </div>
+        <div class="slide-footer">
+          <span>Problem Validation & Market Gap</span>
+          <span class="slide-counter">02 / 08</span>
+        </div>
+      </div>
+
+      <!-- SLIDE 3 -->
+      <div class="slide" data-slide="3">
+        <div>
+          <div class="slide-tag">03 // Audience & Impact</div>
+          <h2 class="slide-title">Who Has This Problem & Why It Matters</h2>
+          <p class="slide-subtitle">Impacting high-velocity B2B SaaS, D2C Commerce, and Fintech revenue teams.</p>
+          
+          <div class="grid-2">
+            <div class="deck-card">
+              <h4 style="color:var(--cyan);">Growth & Performance Marketers</h4>
+              <p><strong>Struggle:</strong> Managing $50k-$2M/mo ad budgets across Meta, Google, and TikTok without live sub-second attribution.</p>
+              <p style="margin-top:0.5rem; color:#cbd5e1;"><strong>Impact:</strong> Hundreds of thousands in wasted ad spend and lost pipeline.</p>
+            </div>
+            <div class="deck-card">
+              <h4 style="color:var(--purple);">Product & UX Teams</h4>
+              <p><strong>Struggle:</strong> Onboarding drop-offs and feature friction are only diagnosed weeks later through batch reports.</p>
+              <p style="margin-top:0.5rem; color:#cbd5e1;"><strong>Impact:</strong> Lower trial-to-paid conversion and avoidable user churn.</p>
+            </div>
+            <div class="deck-card">
+              <h4 style="color:var(--emerald);">RevOps & Executive Leaders</h4>
+              <p><strong>Struggle:</strong> Inability to forecast sudden demand waves or detect high-value account churn risks proactively.</p>
+              <p style="margin-top:0.5rem; color:#cbd5e1;"><strong>Impact:</strong> Missing revenue targets and inaccurate board ARR guidance.</p>
+            </div>
+            <div class="deck-card">
+              <h4 style="color:#f59e0b;">Platform & Data Engineers</h4>
+              <p><strong>Struggle:</strong> Fragile Flink/Kafka streaming jobs and high cloud warehouse query compute costs.</p>
+              <p style="margin-top:0.5rem; color:#cbd5e1;"><strong>Impact:</strong> Pipeline downtime, maintenance headaches, and alert fatigue.</p>
+            </div>
+          </div>
+        </div>
+        <div class="slide-footer">
+          <span>Stakeholder Alignment</span>
+          <span class="slide-counter">03 / 08</span>
+        </div>
+      </div>
+
+      <!-- SLIDE 4 -->
+      <div class="slide" data-slide="4">
+        <div>
+          <div class="slide-tag">04 // The Solution</div>
+          <h2 class="slide-title">Pulse: The Real-Time Intelligence Engine</h2>
+          <p class="slide-subtitle">A unified, zero-latency dashboard combining telemetry with proactive intelligence.</p>
+          
+          <div class="grid-4">
+            <div class="deck-card">
+              <h4 style="color:var(--cyan);">01. Live Ingestion</h4>
+              <p>Sub-second event stream generating and categorizing actions across 6 major channels.</p>
+            </div>
+            <div class="deck-card">
+              <h4 style="color:var(--purple);">02. Predictive Wave</h4>
+              <p>Algorithmic demand projections with confidence envelopes for resource & ad allocation.</p>
+            </div>
+            <div class="deck-card">
+              <h4 style="color:var(--emerald);">03. Attribution Heatmap</h4>
+              <p>Multi-dimensional conversion matrix identifying peak customer value segments.</p>
+            </div>
+            <div class="deck-card">
+              <h4 style="color:var(--rose);">04. Early Churn Radar</h4>
+              <p>Behavioural decay scoring warning success teams 14+ days before cancellation.</p>
+            </div>
+          </div>
+        </div>
+        <div class="slide-footer">
+          <span>Platform Architecture</span>
+          <span class="slide-counter">04 / 08</span>
+        </div>
+      </div>
+
+      <!-- SLIDE 5 -->
+      <div class="slide" data-slide="5">
+        <div>
+          <div class="slide-tag">05 // Technical Architecture</div>
+          <h2 class="slide-title">Modern, High-Performance Web Stack</h2>
+          <p class="slide-subtitle">Built for 60fps interactivity, sub-second latency, and zero server strain.</p>
+          
+          <div style="margin-top:1.5rem; display:flex; flex-direction:column; gap:0.75rem;">
+            <div class="timeline-item">
+              <span class="timeline-badge">Next.js 16 + Turbopack</span>
+              <p style="font-size:0.9rem;">Modern App Router delivering instantaneous route transitions, static optimization, and modular page splits.</p>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-badge" style="background:rgba(139,92,246,0.15); color:var(--purple);">Zustand Reactive State</span>
+              <p style="font-size:0.9rem;">High-frequency reactive store handling continuous streaming events, simulated load bursts, and global filters without re-render stutter.</p>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-badge" style="background:rgba(16,185,129,0.15); color:var(--emerald);">Recharts & Framer Motion</span>
+              <p style="font-size:0.9rem;">Hardware-accelerated visual graphics with smooth transitions, live radar diagrams, and dynamic demand wave rendering.</p>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-badge" style="background:rgba(244,63,94,0.15); color:var(--rose);">Tailwind CSS v4</span>
+              <p style="font-size:0.9rem;">Cyber-ergonomic design system with glassmorphic cards, responsive sidebars, and accessible typography.</p>
+            </div>
+          </div>
+        </div>
+        <div class="slide-footer">
+          <span>Technology & Infrastructure</span>
+          <span class="slide-counter">05 / 08</span>
+        </div>
+      </div>
+
+      <!-- SLIDE 6 -->
+      <div class="slide" data-slide="6">
+        <div>
+          <div class="slide-tag">06 // Market Opportunity</div>
+          <h2 class="slide-title">$50B+ Total Addressable Market</h2>
+          <p class="slide-subtitle">Capitalizing on the convergence of Product Analytics, Customer Data Platforms, and Real-Time RevOps.</p>
+          
+          <div class="grid-3">
+            <div class="deck-card">
+              <div class="stat">$32.5B</div>
+              <h4>CDP Market Size</h4>
+              <p>Forecasted market valuation by 2030, driven by real-time customer data demands.</p>
+            </div>
+            <div class="deck-card">
+              <div class="stat" style="color:var(--purple);">$18.8B</div>
+              <h4>Product Analytics</h4>
+              <p>Rapid migration away from legacy batch analytics to event-stream dashboards.</p>
+            </div>
+            <div class="deck-card">
+              <div class="stat" style="color:var(--emerald);">400k+</div>
+              <h4>Target Companies</h4>
+              <p>Growth companies investing heavily in multi-channel paid media and customer retention.</p>
+            </div>
+          </div>
+        </div>
+        <div class="slide-footer">
+          <span>Market Landscape & Growth Potential</span>
+          <span class="slide-counter">06 / 08</span>
+        </div>
+      </div>
+
+      <!-- SLIDE 7 -->
+      <div class="slide" data-slide="7">
+        <div>
+          <div class="slide-tag">07 // Business Model</div>
+          <h2 class="slide-title">Product-Led Open Core Monetization</h2>
+          <p class="slide-subtitle">Frictionless developer adoption paired with high-value enterprise expansion.</p>
+          
+          <div class="grid-3">
+            <div class="deck-card">
+              <h4>Community Edition</h4>
+              <div class="stat" style="font-size:1.5rem; color:#94a3b8;">Free / Open Source</div>
+              <p style="margin-top:0.75rem;">Self-hosted Next.js app, synthetic simulator, multi-page analytics, local storage persistence, MIT license.</p>
+            </div>
+            <div class="deck-card" style="border-color:var(--cyan); background:rgba(6,182,212,0.05);">
+              <h4 style="color:var(--cyan);">Pro Cloud</h4>
+              <div class="stat" style="font-size:1.5rem; color:var(--cyan);">$199 / month</div>
+              <p style="margin-top:0.75rem;">Hosted streaming ingestion endpoints, pre-built Stripe/Segment webhooks, 90-day retention, team collaboration.</p>
+            </div>
+            <div class="deck-card">
+              <h4>Enterprise Cluster</h4>
+              <div class="stat" style="font-size:1.5rem; color:var(--purple);">$25k+ ARR</div>
+              <p style="margin-top:0.75rem;">Dedicated Kafka/Flink stream pipelines, custom predictive ML models, SSO/SAML, VPC deployment, SLA guarantee.</p>
+            </div>
+          </div>
+        </div>
+        <div class="slide-footer">
+          <span>Monetization & Go-To-Market</span>
+          <span class="slide-counter">07 / 08</span>
+        </div>
+      </div>
+
+      <!-- SLIDE 8 -->
+      <div class="slide" data-slide="8">
+        <div>
+          <div class="slide-tag">08 // Conclusion & Next Steps</div>
+          <h2 class="slide-title">Ready for Live Demonstration</h2>
+          <p class="slide-subtitle">The complete Pulse dashboard is built, tested, and ready to deploy.</p>
+          
+          <div class="grid-2" style="margin-top:2rem;">
+            <div class="deck-card">
+              <h4 style="color:var(--cyan);">Live Local Dashboard</h4>
+              <p>Run locally with <code>npm run dev</code> and explore live streaming events, real-time KPI updates, and channel radars.</p>
+              <div style="margin-top:1rem; font-family:'JetBrains Mono'; font-size:0.85rem; color:var(--emerald);">
+                ✓ Port 3000 Active & Validated
+              </div>
+            </div>
+            <div class="deck-card">
+              <h4 style="color:var(--purple);">Public Code Repository</h4>
+              <p>Complete source code, Docker configuration, documentation, and MIT license prepared for submission.</p>
+              <div style="margin-top:1rem; font-family:'JetBrains Mono'; font-size:0.85rem; color:var(--cyan);">
+                ✓ GitHub: github.com/Meera2926/pulse-dashboard
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slide-footer">
+          <span>Pulse • Thank You</span>
+          <span class="slide-counter">08 / 08</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    let currentSlide = 1;
+    const totalSlides = 8;
+
+    function showSlide(n) {
+      if (n > totalSlides) currentSlide = 1;
+      else if (n < 1) currentSlide = totalSlides;
+      else currentSlide = n;
+
+      document.querySelectorAll('.slide').forEach(slide => {
+        slide.classList.remove('active');
+        if (parseInt(slide.getAttribute('data-slide')) === currentSlide) {
+          slide.classList.add('active');
+        }
+      });
+
+      document.getElementById('slideIndicator').innerText = `${currentSlide} / ${totalSlides}`;
+    }
+
+    function nextSlide() { showSlide(currentSlide + 1); }
+    function prevSlide() { showSlide(currentSlide - 1); }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        prevSlide();
+      }
+    });
+  </script>
+</body>
+</html>
