@@ -24,7 +24,7 @@ export default function LiveTicker() {
             <span key={i} className="inline-flex items-center gap-2 text-[#6868a0]">
               <span className="w-1.5 h-1.5 rounded-full" style={{ background: item.hex }} />
               <span style={{ color: item.hex }} className="font-semibold">{item.label}</span>
-              — {item.hits.toLocaleString()} events
+              <span suppressHydrationWarning>— {item.hits.toLocaleString()} events</span>
             </span>
           ))}
         </div>

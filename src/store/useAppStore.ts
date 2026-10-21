@@ -61,6 +61,15 @@ interface AppState {
 const rn = (lo: number, hi: number) => Math.floor(Math.random() * (hi - lo + 1) + lo);
 const pushSpark = (arr: number[], val: number) => [...arr.slice(-19), val];
 
+const INITIAL_CHANNEL_HITS: Record<Channel, number> = {
+  Email: 142,
+  Social: 188,
+  Ads: 95,
+  Referral: 110,
+  Organic: 165,
+  SMS: 78,
+};
+
 export const useAppStore = create<AppState>((set, get) => ({
   isLoggedIn: false,
   userName: 'Meera K.',
@@ -121,7 +130,7 @@ export const useAppStore = create<AppState>((set, get) => ({
     set({
       events: [],
       totalEvents: 0,
-      channelHits: Object.fromEntries(CHANNELS.map((c) => [c, rn(40, 100)])) as Record<Channel, number>,
+      channelHits: { ...INITIAL_CHANNEL_HITS },
       kpis: {
         signups: 1240, revenue: 58320, feedback: 342, demand: 72,
         todaySignups: 0, todayRevenue: 0, todayFeedback: 0, churnAlerts: 0,
@@ -134,9 +143,7 @@ export const useAppStore = create<AppState>((set, get) => ({
     todaySignups: 0, todayRevenue: 0, todayFeedback: 0, churnAlerts: 0,
   },
 
-  channelHits: Object.fromEntries(
-    CHANNELS.map((c) => [c, rn(80, 220)])
-  ) as Record<Channel, number>,
+  channelHits: { ...INITIAL_CHANNEL_HITS },
 
   demandHistory: [62, 65, 70, 68, 74, 71, 76, 79, 77, 82, 80, 85],
 
