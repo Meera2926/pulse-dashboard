@@ -19,7 +19,6 @@ All required submission items are included in this public repository:
 | **Problem Statement** | [`PROBLEM_STATEMENT.md`](./PROBLEM_STATEMENT.md) | Exhaustive analysis explaining who has the problem (Growth, Product, RevOps) and why it matters. |
 | **Pitch Deck (PPTX)** | [`Pulse_Pitch_Deck.pptx`](./Pulse_Pitch_Deck.pptx) | Professional 9-slide widescreen (16:9) presentation in Microsoft PowerPoint format. |
 | **Pitch Deck (Web & PDF)** | [`PITCH_DECK.html`](./PITCH_DECK.html) | Interactive slide deck with print-to-PDF styles (`@media print`). |
-| **Demo Video Script** | [`DEMO_SCRIPT.md`](./DEMO_SCRIPT.md) | 3-minute video storyboard with timestamps, speaker transcript, and screen cues. |
 | **Clean Documentation** | [`README.md`](./README.md) | Architectural breakdown, feature index, setup instructions, and deployment guide. |
 | **Deployment Guide** | [`DEPLOYMENT.md`](./DEPLOYMENT.md) | Step-by-step instructions for local, Vercel, Docker, and self-hosted deployments. |
 | **Licence** | [`LICENSE`](./LICENSE) | Open-source MIT License. |
